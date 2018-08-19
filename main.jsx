@@ -123,7 +123,10 @@ function cleanList() {
 
 //////////////////// *** procces folder
 
-W.add ('button', undefined, 'Rozpocznij | Begin')
+var start = W.add ('button', undefined, 'Rozpocznij | Begin');
+start.onClick = function () {
+  loop_folder();
+}
 
 W.show();
 
