@@ -8,6 +8,9 @@ $.level = 0;
 // on localized builds pull the $$$/Strings from a .dat file
 $.localize = true;
 
+//working on cm
+preferences.rulerUnits = Units.CM;
+
 ////////////////////// ********** parse ms-dos csv
 
 //open file with amount for batch proccesing
@@ -140,11 +143,6 @@ function loop_folder () {
 
     for (var i = 0; i < files_to_pr.length; i++) {
 
-      var temp_w_1 = new Window ('palette', "Progress", undefined, {closeButton: false});
-      var desc_temp_1 = temp_w_1.add('statictext', undefined, ('Liczba plikow | Amount of files:' + files_to_pr.length ));
-      var p_bar_1 = temp_w_1.add("progressbar", undefined, 0, files_to_pr.length);
-      temp_w_1.show();
-
       openedFile = app.open(inputFiles[i]);
       app.activeDocument = openedFile;
       convert_();
@@ -152,20 +150,20 @@ function loop_folder () {
       Name = app.activeDocument.name.replace(/\.[^\.]+$/, '');
 
       Suffix = main_arr[ind][1] + 'x' + main_arr[ind][2];
+      Suffix = Suffix.replace('.',',');
+      Suffix = Suffix.replace('.',',');
 
       SaveTIFF( new File (folderLoc + '0' + i + '_' + Suffix + '_' + Name + '.tif') );
 
       openedFile.close(SaveOptions.DONOTSAVECHANGES);
 
-      p_bar_1.value++;
     }
 
-    //close progressbar
-    temp_w_1.close();
     //safety else:
   } else {
     alert ('Nie wybrano folder | No folder has been chosen');
   }
+  W.close();
 }
 
 function convert_() {
